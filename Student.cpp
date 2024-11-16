@@ -17,7 +17,7 @@ public:
         cout << "ID: " << id << ", Name: " << firstName << " " << lastName << ", GPA: " << gpa << "\n";
     }
 
-    double calculateGPA {
+    double calculateGPA() {
         //TODO
         return 0;
     }
@@ -71,10 +71,13 @@ public:
         }
     }
 	
-	int generateID() {
-		//TODO
-		return 1;
-	}
+    int generateID() {
+    	//Add entropy to the seed to avoid predictable output
+	random_device rd;
+        mt19937 generator(rd());
+        uniform_int_distribution<int> distrubtion(1000000, 9999999);
+        return distrubtion(generator);
+    }
 };
 
 int main() {
