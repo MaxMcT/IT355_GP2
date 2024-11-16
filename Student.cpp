@@ -6,7 +6,7 @@ class Student {
 private:
     int id;
     string firstName;
-	string lastName;
+    string lastName;
     double gpa;
 
 public:
@@ -17,10 +17,6 @@ public:
         cout << "ID: " << id << ", Name: " << firstName << " " << lastName << ", GPA: " << gpa << "\n";
     }
 
-    double calculateGPA() {
-        //TODO
-        return 0;
-    }
 };
 
 class StudentAccount {
@@ -35,21 +31,25 @@ private:
         for (int i = 0; i < size; ++i) {
             temp[i] = students[i];
         }
+	//Use correct deallocate call to free memory
         delete[] students;
         students = temp;
     }
 
 public:
     StudentAccount(int initialCapacity = 2) : capacity(initialCapacity), size(0) {
-        students = new Student[capacity];
+        //Initialize pointer, preventing access to the unitialized pointer
+	students = new Student[capacity];
     }
 
     ~StudentAccount() {
+	//Use correct deallocate call to free memory
         delete[] students;
     }
 
     void addStudent(int id, string firstName, string lastName, double gpa) {
-        if (size == capacity) {
+        //Prevent out of bounds write when capacity is met
+	if (size == capacity) {
             resize();
         }
         students[size++] = Student(id, firstName, lastName, gpa);
@@ -78,6 +78,11 @@ public:
         uniform_int_distribution<int> distrubtion(1000000, 9999999);
         return distrubtion(generator);
     }
+
+    double calculateGPA() {
+        //TODO
+        return 0;
+    }
 };
 
 int main() {
@@ -86,7 +91,7 @@ int main() {
     account.addStudent(account.generateID(), "Luke", "Larry", 3.5);
     account.addStudent(account.generateID(), "Bob", "Bart", 3.8);
 
-	cout << "Student List:\n";
+    cout << "Student List:\n";
     account.printArray();
 
     cout << "Student an index 1:\n";
