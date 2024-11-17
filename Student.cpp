@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <random>
 using namespace std;
 
 class Student {
@@ -87,18 +88,54 @@ public:
 
 int main() {
     StudentAccount account;
+    int choice = 0;
+    while (choice != 4) {
+        cout << "\nStudent Account Options:\n";
+        cout << "1. Add Student\n";
+        cout << "2. View All Students\n";
+        cout << "3. View a Student by Index\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    account.addStudent(account.generateID(), "Luke", "Larry", 3.5);
-    account.addStudent(account.generateID(), "Bob", "Bart", 3.8);
+        switch (choice) {
+            case 1: {
+                string firstName, lastName;
+                double gpa;
+                cout << "Enter first name: ";
+                cin >> firstName;
+                cout << "Enter last name: ";
+                cin >> lastName;
+                cout << "Enter GPA: ";
+                cin >> gpa;
 
-    cout << "Student List:\n";
-    account.printArray();
+                int id = account.generateID();
+                account.addStudent(id, firstName, lastName, gpa);
+                cout << "Student added successfully with ID: " << id << "\n";
+                break;
+            }
+            case 2:
+                cout << "\nPrinting all students:\n";
+                account.printArray();
+                break;
 
-    cout << "Student an index 1:\n";
-    account.printStudent(1);
+            case 3: {
+                int index;
+                cout << "Enter student index: ";
+                cin >> index;
+                cout << "\nPrinting student at index " << index << "\n";
+                account.printStudent(index);
+                break;
+            }
 
-    cout << "Accessing outside of array:\n";
-    account.printStudent(2);
+            case 4:
+                cout << "Exiting program. Goodbye!\n";
+                return 0;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    }
 
     return 0;
 }
