@@ -122,6 +122,7 @@ public:
     }
 
     int readFile(string filename) {
+        //read students in from file
         ifstream infile(filename);
 
         if(!infile.is_open()){
@@ -144,6 +145,7 @@ public:
     }
 
     int writeFile(string filename){
+        //write students to file
         ofstream outfile(filename);
 
         if(!outfile.is_open()){
@@ -225,9 +227,11 @@ int main() {
             }
             case 4:
                 account.readFile("example.txt");
+                cout << "Students read from file\n";
                 break;
             case 5:
                 account.writeFile("example.txt");
+                cout << "Students written to file\n";
                 break;
             case 6:
                 cout << "Exiting program. Goodbye!\n";
