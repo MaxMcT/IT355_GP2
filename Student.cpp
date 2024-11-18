@@ -33,6 +33,9 @@ private:
         for (int i = 0; i < size; ++i) {
             	temp[i] = students[i];
         }
+	for (int i = size; i < capacity; ++i) {
+            temp[i] = Student();  // Initialize new slots
+        }
 	//Use correct deallocate call to free memory
         delete[] students; //Properly release old memory
         students = temp;
@@ -46,6 +49,9 @@ public:
     StudentAccount(int initialCapacity = 2) : capacity(initialCapacity), size(0) {
         //Initialize pointer, preventing access to the unitialized pointer
 	students = new Student[capacity];
+	for (int i = 0; i < capacity; ++i) {
+        students[i] = Student();  // Initialize each student object
+    }
     }
 
     ~StudentAccount() {
@@ -65,7 +71,8 @@ public:
         //Prevent buffer overflow or underflow by adding conditional for accessing the array
         if (index < 0 || index >= size) { //Prevent out-of-bounds access
             cout << "Invalid index. Please enter a valid index.\n";
-        }
+        } else if (students[index].getFirstName().empty()) {  // Check for uninitialized student
+        cout << "Student at index " << index << " is uninitialized.\n";
         else {
             students[index].print();
         }
@@ -114,8 +121,18 @@ int main() {
                 double gpa;
                 cout << "Enter first name: ";
                 cin >> firstName;
+		if (firstName.empty()) {
+    		cout << "Invalid name. Setting default value to 'Unknown'.\n";
+    		firstName = "Unknown";
+		}
+		    
                 cout << "Enter last name: ";
                 cin >> lastName;
+		if (lastName.empty()) {
+    		cout << "Invalid name. Setting default value to 'Unknown'.\n";
+    		lastName = "Unknown";
+		}
+		    
                 cout << "Enter GPA: ";
                 cin >> gpa;
 
