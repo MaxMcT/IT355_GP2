@@ -58,8 +58,8 @@ public:
 
     void printStudent(int index) {
         //Prevent buffer overflow or underflow by adding conditional for accessing the array
-        if (index < 0 || index > size - 1) {
-            cout << "Invalid index.\n";
+        if (index < 0 || index >= size) { //Prevent out-of-bounds access
+            cout << "Invalid index. Please enter a valid index.\n";
         }
         else {
             students[index].print();
