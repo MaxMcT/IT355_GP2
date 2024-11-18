@@ -24,3 +24,14 @@
   - CWE-571: Expression is Always True
   - CWE-480: Use of Incorrect Operator 
 </details>
+
+<details>
+  <summary>Zach Contreras</summary>
+
+  - CWE-190: Prevent Integer Overflow
+  - CWE-126: Prevent Buffer Over-read
+  - CWE-457: Use of Unintialized Variable
+  - CWE-404: Improper Resource Shutdown
+  - CWE-772: Missing Release of Resource 
+  - CWE-126: Prevent Buffer Over-read
+</details>
