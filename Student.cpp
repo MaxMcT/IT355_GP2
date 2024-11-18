@@ -114,6 +114,13 @@ int main() {
                 cout << "Enter GPA: ";
                 cin >> gpa;
 
+		if (cin.fail() || gpa < 0.0 || gpa > 4.0) {  // Validate GPA range
+    		cout << "Invalid GPA. Setting default value of 0.0.\n";
+    		cin.clear();  // Clear error flags
+    		cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Ignore invalid input
+    		gpa = 0.0;
+		}
+		    
                 int id = account.generateID();
                 account.addStudent(id, firstName, lastName, gpa);
                 cout << "Student added successfully with ID: " << id << "\n";
