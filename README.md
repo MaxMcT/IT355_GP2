@@ -35,3 +35,14 @@
   - CWE-772: Missing Release of Resource 
   - CWE-665: Improper Initialization
 </details>
+
+<details>
+ <summary>Jamie Morrone</summary>
+  
+ - CWE-125: Out-of-bounds Read
+ - CWE-331: Insufficient Entropy
+ - CWE-763: Release of Invalid Pointer or Reference
+ - CWE-824: Access of Uninitialized Pointer
+ - CWE-787: Out-of-bounds Write
+ - CWE-839: Numeric Range Comparison Without Minimum Check
+</details>
