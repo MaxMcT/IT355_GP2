@@ -27,16 +27,21 @@ private:
     int size;
 
     void resize() {
+	try{
         capacity *= 2;
         Student* temp = new Student[capacity];
         for (int i = 0; i < size; ++i) {
-            temp[i] = students[i];
+            	temp[i] = students[i];
         }
 	//Use correct deallocate call to free memory
-        delete[] students;
+        delete[] students; //Properly release old memory
         students = temp;
+    } catch(const bad_alloc&){
+	cout<<"Error: Memory allocation failed during resize.\n";
+	delete[] temp; //clean up partially allocated memory
+	throw; //re-throw exception 
     }
-
+}
 public:
     StudentAccount(int initialCapacity = 2) : capacity(initialCapacity), size(0) {
         //Initialize pointer, preventing access to the unitialized pointer
