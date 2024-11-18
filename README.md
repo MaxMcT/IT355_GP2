@@ -33,5 +33,5 @@
   - CWE-457: Use of Unintialized Variable
   - CWE-404: Improper Resource Shutdown
   - CWE-772: Missing Release of Resource 
-  - CWE-126: Prevent Buffer Over-read
+  - CWE-665: Improper Initialization
 </details>
