@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include <fstream>
+
 using namespace std;
 
 class Student {
@@ -18,6 +20,22 @@ public:
         cout << "ID: " << id << ", Name: " << firstName << " " << lastName << ", GPA: " << gpa << "\n";
     }
 
+    int get_id(){
+        return id;
+    }
+
+    string get_firstName(){
+        return firstName;
+    }
+
+    string get_lastName(){
+        return lastName;
+    }
+
+    double get_gpa(){
+        return gpa;
+    }
+
 };
 
 class StudentAccount {
@@ -27,9 +45,10 @@ private:
     int size;
 
     void resize() {
+        Student* temp;
 	try{
         capacity *= 2;
-        Student* temp = new Student[capacity];
+        temp = new Student[capacity];
         for (int i = 0; i < size; ++i) {
             	temp[i] = students[i];
         }
@@ -71,9 +90,9 @@ public:
         //Prevent buffer overflow or underflow by adding conditional for accessing the array
         if (index < 0 || index >= size) { //Prevent out-of-bounds access
             cout << "Invalid index. Please enter a valid index.\n";
-        } else if (students[index].getFirstName().empty()) {  // Check for uninitialized student
+        } else if (students[index].get_firstName().empty()) {  // Check for uninitialized student
         cout << "Student at index " << index << " is uninitialized.\n";
-        else {
+        }else {
             students[index].print();
         }
     }
@@ -88,7 +107,7 @@ public:
     	//Add entropy to the seed to avoid predictable output
 	random_device rd;
         mt19937 generator(rd());
-        uniform_int_distribution<int> distrubtion(1000000, 9999999);
+        uniform_int_distribution<int> distribution(1000000, 9999999);
         int id = distribution(generator);
     	if (id < 0) {  // Check for overflow
         cout << "Error: Generated ID caused overflow.\n";
@@ -101,17 +120,60 @@ public:
         //TODO
         return 0;
     }
+
+    int readFile(string filename) {
+        ifstream infile(filename);
+
+        if(!infile.is_open()){
+            cout << "There was an error opening the file\n";
+            return 1;
+        }
+        infile >> size;
+        capacity = size*2; 
+        students = new Student[capacity];
+        for(int i =0; i < size; i++){
+            int id;
+            string firstname, lastname;
+            double gpa;
+            infile >> id >> firstname >> lastname >> gpa;
+            students[i] = Student(id, firstname, lastname, gpa);
+        }
+
+        infile.close();
+        return 0;
+    }
+
+    int writeFile(string filename){
+        ofstream outfile(filename);
+
+        if(!outfile.is_open()){
+            cout << "there was an error opening the file\n";
+            return 1;
+        }
+
+        outfile << size << '\n';
+        for(int i =0; i < size; i++){
+            outfile << students[i].get_id() << ' ';
+            outfile << students[i].get_firstName() << ' ';
+            outfile << students[i].get_lastName() << ' ';
+            outfile << students[i].get_gpa() << '\n';
+        }
+        outfile.close();
+        return 0;
+    }
 };
 
 int main() {
     StudentAccount account;
     int choice = 0;
-    while (choice != 4) {
+    while (choice != 6) {
         cout << "\nStudent Account Options:\n";
         cout << "1. Add Student\n";
         cout << "2. View All Students\n";
         cout << "3. View a Student by Index\n";
-        cout << "4. Exit\n";
+        cout << "4. Read in Students\n";
+        cout << "5. Write Students to file\n";
+        cout << "6. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -161,8 +223,13 @@ int main() {
                 account.printStudent(index);
                 break;
             }
-
             case 4:
+                account.readFile("example.txt");
+                break;
+            case 5:
+                account.writeFile("example.txt");
+                break;
+            case 6:
                 cout << "Exiting program. Goodbye!\n";
                 return 0;
 
