@@ -116,11 +116,6 @@ public:
     	return id;
     }
 
-    double calculateGPA() {
-        //TODO
-        return 0;
-    }
-
     int readFile(string filename) {
         //read students in from file
         ifstream infile(filename);
